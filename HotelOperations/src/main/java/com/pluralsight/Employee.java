@@ -6,9 +6,11 @@ public class Employee {
     private String name;
     private String department;
     private double payRate;
-    private int hoursWorked;
+    private double hoursWorked;
+//    private boolean currentlyWorking = false;
+    private double recentPunchIn = 0.0;
 
-    public Employee(int employeeId, String name, String department, double payRate, int hoursWorked) {
+    public Employee(int employeeId, String name, String department, double payRate, double hoursWorked) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
@@ -33,7 +35,7 @@ public class Employee {
         return payRate;
     }
 
-    public int getHoursWorked() {
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
@@ -54,10 +56,10 @@ public class Employee {
         return (getRegularHours() * payRate) + (getOvertimeHours() * (payRate * 1.5));
     }
 
-    public int getRegularHours(){
-        return Math.min(hoursWorked, 40);
+    public double getRegularHours(){
+        return Math.min(hoursWorked, 40.0);
     }
-    public int getOvertimeHours(){
+    public double getOvertimeHours(){
         if (hoursWorked > 40){
             return (hoursWorked - 40);
         }else{
@@ -65,4 +67,19 @@ public class Employee {
         }
     }
 
+    public void punchIn(double time){
+//        currentlyWorking = true;
+        this.recentPunchIn = time;
+    }
+
+    public void punchOut(double time){
+        double shiftHours = time - this.recentPunchIn;
+        this.hoursWorked += shiftHours;
+        this.recentPunchIn = 0.0;
+    }
+
+    public void punchTimeCard(double startTime, double endTime){
+        this.hoursWorked += (endTime - startTime);
+
+    }
 }
