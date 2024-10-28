@@ -4,14 +4,14 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class DealershipFileManager {
     public final static String dataFileName = "inventory.csv";
-    public Dealership getDealership() {
+
+
+    public static Dealership getDealership() {
         ArrayList<Vehicle> inventory = new ArrayList<>();
         Dealership dealership = null;
         try {
@@ -42,15 +42,16 @@ public class DealershipFileManager {
             System.out.println("ERROR!!");
             e.printStackTrace();
         }
+
         return dealership;
     }
 
 
-    public void saveDealership(Dealership dealership) {
+    public static void saveDealership(Dealership dealership) {
         try  {
             BufferedWriter bw = new BufferedWriter(new FileWriter(dataFileName));
-            bw.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhoneNumber());
-            bw.newLine();
+            bw.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhoneNumber() + "\n");
+
 
             for (Vehicle vehicle : dealership.getInventory()) {
                 bw.write(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|"
