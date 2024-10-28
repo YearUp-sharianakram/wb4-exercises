@@ -34,16 +34,36 @@ public class Room {
         return ( !this.isDirty() && !this.isOccupied() );
     }
 
-    public void checkIn(){
-        this.occupied = true;
-        this.dirty = true;
+    public void checkIn() {
+        if (!this.occupied && !this.dirty) {
+            this.occupied = true;
+            this.dirty = true;
+        } else {
+            if (occupied) {
+                System.out.println("Unable to check in, room is occupied");
+            } else {
+                System.out.println("Unable to check in, room is dirty");
+            }
+        }
     }
     public void checkout(){
-        this.occupied = false;
+        if (this.occupied && this.dirty){
+            this.occupied = false;
+        }else{
+            System.out.println("Unable to check out, This room is available ");
+        }
     }
 
-    public void cleanRoom(){
-        this.dirty = false;
+    public void cleanRoom() {
+        if (!this.occupied && this.dirty) {
+            this.dirty = false;
+        } else {
+            if (occupied) {
+                System.out.println("Room is currently in use");
+            } else {
+                System.out.println("Room is already clean");
+            }
+        }
     }
 
 }
